@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- TÍTULO DA ABA -->
+    <title>Lista de Tarefas</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f7faf8;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .planner {
+            background-color: #ffffff;
+            width: 420px;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        /* TÍTULO ESTILO PLANNER */
+        h1 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #5f8f75;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            border: none;
+            border-bottom: 2px solid #e6e6e6;
+            padding: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #f3b6c8;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: #e89ab2;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 5px;
+            border-bottom: 1px solid #eaeaea;
+            cursor: pointer;
+            color: #4f6f63;
+            font-size: 15px;
+        }
+
+        li::before {
+            content: "♡";
+            color: #f3b6c8;
+            font-size: 18px;
+        }
+
+        li.concluida {
+            text-decoration: line-through;
+            color: #a8c6b7;
+        }
+
+        li.concluida::before {
+            content: "♥";
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="planner">
+        <!-- TÍTULO VISÍVEL -->
+        <h1>Lista de Tarefas</h1>
+
+        <form id="form-tarefa">
+            <input
+                type="text"
+                id="tarefa"
+                placeholder="Escreva sua tarefa..."
+                required
+            >
+            <button type="submit">+</button>
+        </form>
+
+        <ul id="lista-tarefas"></ul>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#form-tarefa').submit(function (e) {
+                e.preventDefault();
+
+                const tarefa = $('#tarefa').val().trim();
+
+                if (tarefa !== '') {
+                    $('#lista-tarefas').append(
+                        `<li>${tarefa}</li>`
+                    );
+                    $('#tarefa').val('');
+                }
+            });
+
+            $('#lista-tarefas').on('click', 'li', function () {
+                $(this).toggleClass('concluida');
+            });
+
+        });
+    </script>
+
+</body>
+</html>
